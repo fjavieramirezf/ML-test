@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Al hablar y al escribir</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/normalize.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="vendor/animate.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main id="contenido">
+        <div class="container actividad" v-bind:style="fondo">
+            <div class="instrucciones" v-html="'<p>'+pantalla.instrucciones+'</p>'"></div>
+            <div class="bullets">
+                <template v-for="(nombre,ind) of opciones">
+                    <div class="bullet" v-bind:class="[{current:(ind==index)}]">
+                        <div></div>
+                    </div>
+                </template>
+            </div>
+            <div class="afirmaciones">
+                <transition name="custom" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" v-on:after-leave="cambiaafirmacion">                    
+                    <div v-if="mostrar" class="afirmacion" v-bind:data-bool="opciones[index].esverdadero">
+                        <div class="texto"  v-html="'<p>'+opciones[index].texto+'</p>'"></div>
+                        <div class="botones">
+                            <div class="btn" tipo="true" @click="respuesta(true)">{{diccionario.verdadero}}</div>
+                            <div class="btn" tipo="false" @click="respuesta(false)">{{diccionario.falso}}</div>
+                        </div>
+                    </div>
+                </transition>
+            </div>
+        </div>
+        <transition name="custom-modal-transition" enter-active-class="animated slideInDown"
+            leave-active-class="animated slideOutUp">
+            <section class="modal" v-if="modal1">
+                <div class="areamodal entrada">
+                    <div class="text" v-html="pantalla.retroalimentacion"></div>
+                </div>
+                <div class="areaboton">
+                    <div class="btn reiniciar" @click="cerrarmodal"></div>
+                </div>
+            </section>
+        </transition>
+        <transition name="custom-modal-transition" enter-active-class="animated slideInDown"
+            leave-active-class="animated slideOutUp">
+            <section class="modal" v-if="modal2">
+                <div class="areamodal negativo">
+                    <div class="text" v-html="pantalla.negativa"></div>
+                </div>
+                <div class="areaboton">
+                    <div class="btn continuar2" @click="cerrarmodal"></div>
+                </div>
+            </section>
+        </transition>
+    </main>
+
+    <section class="viewblock">
+    </section>
+    <script src="data/data.js"></script>
+    <script src="vendor/vue.min.js"></script>
+    <script src="vendor/howler.min.js"></script>
+    <script src="vendor/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="js/actividad.js"></script>
+    <script>
+        document.oncontextmenu = function () {
+            return false;
+        }
+    </script>
+</body>
+
+</html>

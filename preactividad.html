@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Al hablar y al escribir</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/normalize.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="vendor/animate.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main id="contenido">
+        <div class="container preactividad" v-bind:style="fondo">
+            <div class="instrucciones" v-html="'<p>'+pantalla.instrucciones+'</p>'"></div>
+            <div class="titulos">
+                <template v-for="titulo of pantalla.titulos">
+                    <div class="titulocontainer" v-bind:class="titulo.categoria">
+                        <div class="titulo"  v-html="'<p>'+titulo.titulo+'</p>'"></div>
+                        <div class="droparea" v-bind:class="titulo.categoria" v-bind:data-name="titulo.categoria"></div>
+                    </div>
+                </template>
+            </div>
+
+            <div class="botones">
+                <div class="contbotones">
+                    <template v-for="(bloque,ind) of bloques">
+                        <div class="boton" v-bind:data-name="bloque.categoria"  v-html="'<p>'+bloque.texto+'</p>'"></div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <transition name="custom-modal-transition" enter-active-class="animated slideInDown"
+            leave-active-class="animated slideOutUp">
+            <section class="modal" v-if="modal1">
+                <div class="areamodal entrada">
+                    <div class="text" v-html="pantalla.retroalimentacion"></div>
+                </div>
+                <div class="areaboton">
+                    <div class="btn continuar" @click="cerrarmodal"></div>
+                </div>
+            </section>
+        </transition>
+    </main>
+
+    <section class="viewblock">
+    </section>
+    <script src="data/data.js"></script>
+    <script src="vendor/vue.min.js"></script>
+    <script src="vendor/howler.min.js"></script>
+    <script src="vendor/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="vendor/jQuery/jquery-ui.min.js"></script>
+    <script src="vendor/jQuery/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/preactividad.js"></script>
+    <script>
+        document.oncontextmenu = function () {
+            return false;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Al hablar y al escribir</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/normalize.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="vendor/animate.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body style="position:fixed;">
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="lg">
+        <img src="assets/logo.png" alt="">
+    </div>
+    <main id="inicio">
+        <transition name="custom1" enter-active-class="animated zoomInRight" leave-active-class="animated zoomOutLeft"
+            v-on:after-enter="afterSlideEnter" v-on:before-leave="beforeSlideLeave" v-on:after-leave="afterSlideLeave">            
+            <section v-if="inicio" v-bind:style="fondo">
+                <div class="onda"></div>
+                <template v-for="personaje of personajes">
+                    <transition name="custom1" enter-active-class="animated slideInUp">
+                        <div v-if="showp" class="personaje">
+                            <img v-bind:class="personaje.position" v-bind:src="personaje.imagen">
+                        </div>
+                    </transition>
+                </template>
+                <div class="title index" v-html="titulo"></div>
+                <div class="title subtitle" v-html="subtitulo"></div>
+                <transition name="custom1" enter-active-class="animated slideInUp"
+                    leave-active-class="animated slideOutDown" v-on:after-enter="afterButtonEnter">
+                    <div v-if="showbutton" @click="siguiente" class="btn next"></div>
+                </transition>
+            </section>
+        </transition>
+    </main>
+    <section class="viewblock">
+    </section>
+    <script src="data/data.js"></script>
+    <script src="vendor/vue.min.js"></script>
+    <script src="vendor/howler.min.js"></script>
+    <script src="vendor/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        document.oncontextmenu = function () {
+            return false;
+        }
+    </script>
+</body>
+
+</html>

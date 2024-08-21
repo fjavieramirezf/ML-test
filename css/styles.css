@@ -1,0 +1,608 @@
+:root {
+  --fondo-modal1: #b0d19d;
+  --boton-inicio: #d9738e;
+  --boton-modal1: #e3889f;
+  --boton-habla: #a66bb0;
+  --boton-habla-borde: #7968ad;
+  --boton-escribe: #5dc5c9;
+  --boton-escribe-borde: #488da7;
+  --area-respuesta: #eb9349;
+  --area-escribe: var(--boton-escribe);
+  --area-habla: var(--boton-habla);
+  --boton-actividad: #f2aa78;
+  --boton-verdadero: #009d57;
+  --boton-falso: #ce3b3d;
+  --bullet: #823c9b;
+  --bullet-borde: var(--boton-modal1);
+  --modal-actividad: #e46e69; }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  outline: none; }
+
+@font-face {
+  font-family: mikadoreg;
+  src: url("../fonts/MikadoRegular.otf"); }
+@font-face {
+  font-family: mikadosem;
+  src: url("../fonts/MikadoMedium.otf"); }
+@font-face {
+  font-family: mikadobol;
+  src: url("../fonts/MikadoBold.otf"); }
+html {
+  overflow: hidden;
+  font-size: 2vw;
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+             supported by Chrome, Opera and Firefox */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */ }
+
+::-webkit-scrollbar {
+  width: 5px; }
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--white); }
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: var(--scrollbar-thumb); }
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover); }
+
+body {
+  font-size: 100%;
+  font-family: "mikadoreg";
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  background-color: var(--black); }
+  body #lg {
+    position: fixed;
+    z-index: 9999;
+    top: -5px;
+    right: -5px; }
+    @media (max-width: 599px) {
+      body #lg {
+        top: -20px;
+        right: -25px;
+        transform: scale(0.75); } }
+  body main {
+    position: absolute;
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-flow: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    margin: 0; }
+    body main#inicio {
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+      body main#inicio section {
+        position: absolute;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        grid-template-rows: repeat(24, 4.167%);
+        grid-template-columns: repeat(24, 4.167%);
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat; }
+        body main#inicio section .onda {
+          grid-row-start: 1;
+          grid-row-end: 25;
+          grid-column-start: 1;
+          grid-column-end: 25;
+          width: 100%;
+          height: 100%;
+          background-size: contain;
+          background-position: center top;
+          background-repeat: no-repeat;
+          background-image: url(../assets/01_onda.png); }
+        body main#inicio section .btn {
+          cursor: pointer; }
+          body main#inicio section .btn.next {
+            font-size: 3rem;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0px auto;
+            width: 15rem;
+            height: 5rem;
+            cursor: pointer;
+            border-radius: 1.5rem;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-image: url(../assets/btn_iniciar.png); }
+            @media (max-width: 599px) {
+              body main#inicio section .btn.next {
+                height: 2rem;
+                width: 7rem;
+                font-size: 2rem;
+                border-radius: 0.9rem;
+                bottom: 2rem; } }
+            @media (min-width: 600px) and (orientation: landscape) {
+              body main#inicio section .btn.next {
+                height: 2rem;
+                width: 7rem;
+                font-size: 2rem;
+                border-radius: 0.9rem;
+                bottom: 2rem; } }
+        body main#inicio section .title {
+          grid-column-start: 2;
+          z-index: 1; }
+          body main#inicio section .title.index {
+            font-family: "mikadosem";
+            font-size: 2.5rem;
+            font-weight: bolder;
+            grid-row-start: 2;
+            grid-column-end: 26; }
+            @media (min-width: 1800px) {
+              body main#inicio section .title.index {
+                font-size: 2.25rem; } }
+          body main#inicio section .title.subtitle {
+            font-size: 1.5rem;
+            font-weight: lighter;
+            color: var(--boton-escribe);
+            grid-row-start: 6;
+            grid-column-end: 16; }
+            @media (min-width: 600px) and (orientation: landscape) {
+              body main#inicio section .title.subtitle {
+                grid-row-start: 5; } }
+            @media (min-width: 900px) {
+              body main#inicio section .title.subtitle {
+                grid-row-start: 5; } }
+    body main#contenido {
+      overflow: hidden; }
+      body main#contenido .container {
+        position: absolute;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        grid-template-rows: repeat(24, 4.167%);
+        grid-template-columns: repeat(24, 4.167%);
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat; }
+        body main#contenido .container.preactividad {
+          display: initial;
+          overflow: auto; }
+          body main#contenido .container.preactividad .instrucciones {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            height: 4rem;
+            border-radius: 0 3rem 3rem 0;
+            width: 90%;
+            padding: 2rem;
+            font-size: 1rem;
+            margin-top: 0.5rem; }
+            body main#contenido .container.preactividad .instrucciones span {
+              font-family: mikadosem; }
+          body main#contenido .container.preactividad .titulos {
+            margin-top: 2rem; }
+            body main#contenido .container.preactividad .titulos .titulocontainer {
+              width: 30%; }
+              body main#contenido .container.preactividad .titulos .titulocontainer .titulo {
+                width: 100%;
+                font-size: 1.75rem; }
+              body main#contenido .container.preactividad .titulos .titulocontainer:last-of-type .titulo {
+                border-radius: 3rem 0 0 3rem;
+                color: var(--boton-escribe);
+                justify-content: flex-start; }
+              body main#contenido .container.preactividad .titulos .titulocontainer .droparea {
+                position: relative;
+                height: 15rem;
+                width: 90%;
+                margin-top: 0rem; }
+                body main#contenido .container.preactividad .titulos .titulocontainer .droparea.alhablar {
+                  border-radius: 0 0 1rem 0;
+                  background-color: var(--boton-habla);
+                  opacity: 0.75; }
+                body main#contenido .container.preactividad .titulos .titulocontainer .droparea.alescribir {
+                  border-radius: 0 0 0 1rem;
+                  margin-left: 10%;
+                  background-color: var(--boton-escribe);
+                  opacity: 0.75; }
+          body main#contenido .container.preactividad .botones {
+            height: 20rem; }
+            body main#contenido .container.preactividad .botones .contbotones {
+              width: 19.5rem;
+              column-count: 1;
+              padding: 0.5rem; }
+              body main#contenido .container.preactividad .botones .contbotones .boton {
+                pointer-events: all;
+                width: 18rem;
+                height: 2.5rem;
+                border-radius: 1.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 0.5rem;
+                margin: 0.25rem;
+                font-family: "mikadoreg";
+                cursor: grab;
+                color: white;
+                font-size: 0.75rem;
+                background-color: var(--area-respuesta);
+                border-color: var(--area-respuesta); }
+                body main#contenido .container.preactividad .botones .contbotones .boton.ui-draggable-dragging {
+                  cursor: grabbing; }
+                body main#contenido .container.preactividad .botones .contbotones .boton.alhablar {
+                  background-color: var(--area-habla);
+                  border-color: var(--area-habla); }
+                body main#contenido .container.preactividad .botones .contbotones .boton.alescribir {
+                  background-color: var(--area-escribe);
+                  border-color: var(--area-escribe); }
+                body main#contenido .container.preactividad .botones .contbotones .boton.malo {
+                  background-color: var(--boton-falso);
+                  border-color: var(--boton-falso); }
+        body main#contenido .container.actividad {
+          position: relative;
+          display: flex;
+          flex-flow: column;
+          width: 100%;
+          height: 100%;
+          grid-template-rows: repeat(24, 4.167%);
+          grid-template-columns: repeat(24, 4.167%);
+          background-size: cover;
+          background-position: center bottom;
+          background-repeat: no-repeat; }
+          body main#contenido .container.actividad .instrucciones {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            height: 4rem;
+            border-radius: 0 3rem 3rem 0;
+            width: 90%;
+            padding: 0 0rem 0 2rem;
+            font-size: 0.9rem;
+            margin-top: 0.5rem; }
+            body main#contenido .container.actividad .instrucciones span {
+              font-size: 1rem;
+              font-family: mikadosem; }
+          body main#contenido .container.actividad .bullets {
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+            width: 50%;
+            height: auto;
+            margin: 0px auto;
+            margin-top: 0.5rem; }
+            body main#contenido .container.actividad .bullets .bullet {
+              height: 1.5rem;
+              width: 1.5rem;
+              border-radius: 50%;
+              background-color: var(--bullet-borde);
+              position: relative;
+              display: flex;
+              justify-content: center;
+              align-items: center; }
+              body main#contenido .container.actividad .bullets .bullet.current::after {
+                position: absolute;
+                background-color: var(--bullet);
+                content: " ";
+                height: 80%;
+                width: 70%;
+                border-radius: 50%; }
+          body main#contenido .container.actividad .afirmaciones {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column;
+            width: 100%;
+            height: 100%;
+            margin: 0px auto;
+            margin-top: 0.5rem; }
+            body main#contenido .container.actividad .afirmaciones .afirmacion {
+              display: block;
+              justify-content: flex-start;
+              align-items: center;
+              width: 30rem;
+              height: 15rem;
+              background-color: var(--boton-habla);
+              border: 0.1rem solid var(--boton-habla-borde);
+              border-radius: 1rem;
+              padding: 1rem; }
+              body main#contenido .container.actividad .afirmaciones .afirmacion .botones {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1rem;
+                height: auto;
+                width: 28rem; }
+                body main#contenido .container.actividad .afirmaciones .afirmacion .botones .btn {
+                  height: 2rem;
+                  width: 8rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-radius: 1.5rem;
+                  font-family: 'mikadosem';
+                  margin: 0.5rem;
+                  cursor: pointer;
+                  pointer-events: all;
+                  background-color: var(--boton-actividad); }
+                  body main#contenido .container.actividad .afirmaciones .afirmacion .botones .btn.verdadero {
+                    background-color: var(--boton-verdadero); }
+                  body main#contenido .container.actividad .afirmaciones .afirmacion .botones .btn.falso {
+                    background-color: var(--boton-falso); }
+        body main#contenido .container .titulos {
+          position: absolute;
+          display: flex;
+          flex-flow: row;
+          justify-content: space-between;
+          width: 100%; }
+          body main#contenido .container .titulos .titulo {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            background-color: white;
+            height: 4rem;
+            border-radius: 0 3rem 3rem 0;
+            width: 30%;
+            padding: 2rem;
+            font-size: 2rem;
+            margin-top: 0.5rem;
+            font-family: "mikadosem";
+            color: var(--boton-habla); }
+            body main#contenido .container .titulos .titulo:last-of-type {
+              border-radius: 3rem 0 0 3rem;
+              color: var(--boton-escribe);
+              justify-content: flex-start; }
+            body main#contenido .container .titulos .titulo span {
+              color: #b7155f;
+              font-family: mikadosem; }
+        body main#contenido .container .botones {
+          position: absolute;
+          display: flex;
+          flex-flow: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          margin: 0px auto;
+          width: 100%;
+          pointer-events: none; }
+          body main#contenido .container .botones .contbotones {
+            width: 21rem;
+            height: 20rem;
+            column-count: 2;
+            padding: 0.5rem; }
+            body main#contenido .container .botones .contbotones .holder {
+              width: 10rem;
+              height: 6rem; }
+              body main#contenido .container .botones .contbotones .holder.alhablar:nth-child(n + 2) {
+                margin: 0.5rem 0; }
+              body main#contenido .container .botones .contbotones .holder.alescribir:nth-child(n + 2) {
+                margin: 0.5rem 0; }
+            body main#contenido .container .botones .contbotones .boton {
+              pointer-events: all;
+              width: 10rem;
+              height: 6rem;
+              border-radius: 1rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+              padding: 0.5rem;
+              font-family: "mikadosem";
+              cursor: pointer;
+              color: white; }
+              body main#contenido .container .botones .contbotones .boton.alhablar {
+                background-color: var(--boton-habla);
+                border: 0.1rem solid var(--boton-habla-borde); }
+              body main#contenido .container .botones .contbotones .boton.alescribir {
+                background-color: var(--boton-escribe);
+                border: 0.1rem solid var(--boton-escribe-borde); }
+              body main#contenido .container .botones .contbotones .boton.visto {
+                filter: brightness(0.8); }
+        body main#contenido .container .navegacion {
+          position: absolute;
+          pointer-events: none;
+          height: 100%;
+          width: 100%; }
+          body main#contenido .container .navegacion .btn {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            pointer-events: all;
+            width: 7rem;
+            height: 2rem; }
+            body main#contenido .container .navegacion .btn.continuar {
+              background-image: url(../assets/btn_continuar.png);
+              filter: brightness(0.75); }
+              body main#contenido .container .navegacion .btn.continuar.activo {
+                filter: brightness(1); }
+    body main .modal {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      body main .modal .areamodal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30rem;
+        height: 15rem;
+        font-size: 1.25rem;
+        text-align: center;
+        border-radius: 1rem;
+        border-color: transparent;
+        padding: 2rem;
+        border-style: solid;
+        border-width: 0.1rem; }
+        body main .modal .areamodal.entrada {
+          background-color: var(--fondo-modal1); }
+        body main .modal .areamodal.negativo {
+          background-color: var(--modal-actividad); }
+        body main .modal .areamodal.contenido {
+          width: 35rem;
+          height: 20rem;
+          flex-flow: column; }
+          body main .modal .areamodal.contenido.alhablar {
+            background-color: var(--boton-habla);
+            border-color: var(--boton-habla-borde); }
+          body main .modal .areamodal.contenido.alescribir {
+            background-color: var(--boton-escribe);
+            border-color: var(--boton-escribe-borde); }
+          body main .modal .areamodal.contenido .text {
+            color: white;
+            font-size: 1.25rem;
+            height: 35%; }
+          body main .modal .areamodal.contenido .contenedor {
+            display: flex;
+            width: 100%;
+            height: 70%;
+            flex-flow: row; }
+            body main .modal .areamodal.contenido .contenedor .personaje {
+              grid: unset;
+              width: 27%;
+              height: auto;
+              display: flex;
+              justify-content: center;
+              align-items: center; }
+              body main .modal .areamodal.contenido .contenedor .personaje img {
+                max-height: 100%;
+                height: 100%;
+                width: auto; }
+            body main .modal .areamodal.contenido .contenedor .globo {
+              width: 80%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding: 0 2rem 0 5rem;
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat; }
+            body main .modal .areamodal.contenido .contenedor.derecha {
+              flex-flow: row-reverse; }
+              body main .modal .areamodal.contenido .contenedor.derecha .globo {
+                padding: 0 6rem 0 2rem; }
+            body main .modal .areamodal.contenido .contenedor.centro {
+              justify-content: center; }
+              body main .modal .areamodal.contenido .contenedor.centro .personaje img {
+                animation: none; }
+                body main .modal .areamodal.contenido .contenedor.centro .personaje img:hover {
+                  animation-play-state: paused; }
+      body main .modal .areaboton {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30rem;
+        height: 15rem;
+        font-size: 1.25rem;
+        text-align: center;
+        border-radius: 1rem;
+        padding: 1rem;
+        pointer-events: none; }
+        body main .modal .areaboton .btn {
+          position: absolute;
+          width: 7rem;
+          height: 2rem;
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          cursor: pointer;
+          pointer-events: all;
+          top: 14rem; }
+          body main .modal .areaboton .btn.continuar {
+            background-image: url(../assets/btn_continuar.png); }
+          body main .modal .areaboton .btn.continuar2 {
+            background-image: url(../assets/btn_modal_continuar_act.png); }
+          body main .modal .areaboton .btn.reiniciar {
+            background-image: url(../assets/btn_modal_reiniciar.png); }
+          body main .modal .areaboton .btn.cerrar {
+            background-image: url(../assets/btn_voltear.png);
+            right: -5rem;
+            top: -3rem;
+            height: 5rem;
+            width: 5rem; }
+
+.personaje {
+  grid-row-start: 1;
+  grid-row-end: 25;
+  grid-column-start: 1;
+  grid-column-end: 25;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row;
+  z-index: 0;
+  pointer-events: none; }
+  .personaje img {
+    animation: shake 1.5s linear infinite;
+    animation-play-state: paused;
+    pointer-events: all; }
+    .personaje img.ccenter {
+      align-self: flex-end;
+      margin: 2rem auto; }
+    .personaje img.medium {
+      width: 9rem; }
+      .personaje img.medium.right {
+        width: 8.5rem; }
+    .personaje img.left {
+      margin-right: 10rem; }
+    .personaje img.right {
+      margin-left: 10rem; }
+    .personaje img.left1 {
+      margin-right: 5rem; }
+    .personaje img.right1 {
+      margin-left: 5rem; }
+    .personaje img:hover {
+      animation-play-state: running; }
+
+@media (orientation: portrait) {
+  section.viewblock {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url(../assets/giro.png);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--boton-escribe);
+    z-index: 99999;
+    transition: all 0.5s ease; } }
+
+/*# sourceMappingURL=styles.css.map */

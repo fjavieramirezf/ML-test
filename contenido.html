@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Al hablar y al escribir</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="vendor/normalize.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="vendor/animate.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <main id="contenido">
+        <div class="container contenido" v-bind:style="fondo">
+            <div class="titulos">
+                <div class="titulo" v-html="'<p>'+pantalla.titulos.titulo1+'</p>'"></div>
+                <div class="titulo" v-html="'<p>'+pantalla.titulos.titulo2+'</p>'"></div>
+            </div>
+            <template v-for="personaje of personajes">
+                <transition name="custom1" enter-active-class="animated slideInUp">
+                    <div v-if="showp" class="personaje">
+                        <img v-bind:class="personaje.position" v-bind:src="personaje.imagen">
+                    </div>
+                </transition>
+            </template>
+            <div class="botones">
+                <div class="contbotones">
+                    <template v-for="(boton,ind) of botones">
+                    <div class="holder" v-bind:class="[boton.categoria]">
+                        <transition name="custom2" enter-active-class="animated flipInY" leave-active-class="animated flipOutY" v-on:after-leave="abrirmodal2"  appear>
+                            <div v-if="getVisible(ind)" class="boton" v-bind:data-num="ind" v-bind:class="[boton.categoria,(vistos.includes(ind)?'visto':''),{refresh:isrefresh}]"  @click="abrir(ind)" v-html="boton.titulo"></div>                            
+                        </transition>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="navegacion">
+                <div @click="preactividad" class="btn continuar" v-bind:class="(activo?'activo':'')"></div>
+            </div>
+        </div>
+        <transition name="custom-modal-transition" enter-active-class="animated slideInDown"
+            leave-active-class="animated slideOutUp">
+            <section class="modal" v-if="modal1">
+                <div class="areamodal entrada">
+                    <div class="text" v-html="retroalimentacion"></div>
+                </div>
+                <div class="areaboton">
+                    <div class="btn continuar" @click="cerrarmodal"></div>
+                </div>
+            </section>
+        </transition>
+        <transition name="custom-modal-transition" enter-active-class="animated flipInY"
+            leave-active-class="animated flipOutY" v-on:after-leave="cerradomodal2">
+            <section class="modal" v-if="modal2">
+                <div class="areamodal contenido" v-bind:class="[dataModal.tipo]">
+                    <div class="text" v-html="dataModal.texto"></div>
+                    <div class="contenedor" v-bind:class="[dataModal.tipo, dataModal.posicionpersonaje]">
+                        <div class="personaje">
+                            <img v-bind:src="dataModal.personaje">
+                        </div>
+                        <div class="globo" v-if="(dataModal.globo.length>0)" v-bind:style="{'backgroundImage':'url('+dataModal.globo+')'}" v-html="'<p>'+dataModal.textoglobo+'</p>'"></div>
+                    </div>
+                </div>
+                <div class="areaboton">
+                    <div class="btn cerrar" @click="cerrarmodal"></div>
+                </div>
+            </section>
+        </transition>
+    </main>
+
+    <section class="viewblock">
+    </section>
+    <script src="data/data.js"></script>
+    <script src="vendor/vue.min.js"></script>
+    <script src="vendor/howler.min.js"></script>
+    <script src="vendor/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="js/contenido.js"></script>
+    <script>
+        document.oncontextmenu = function () {
+            return false;
+        }
+    </script>
+</body>
+
+</html>
